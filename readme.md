@@ -1,0 +1,6 @@
+-make template folder [x]
+-make static folder [x]
+-make db scheme []
+-index,login,register,404,503etc pages[]
+-app.py[]
+-helper.py[]

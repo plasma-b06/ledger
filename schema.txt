@@ -1,0 +1,56 @@
+CREATE TABLE users (
+    id              INTEGER PRIMARY KEY AUTOINCREMENT,
+    name            TEXT NOT NULL,
+    loginpsswd      TEXT, 
+    uniquekey       TEXT UNIQUE NOT NULL,
+    authentication  TEXT, 
+    created_at      TEXT DEFAULT (datetime('now')),
+    last_login      TEXT
+);
+
+CREATE TABLE pages (
+    page_id         INTEGER PRIMARY KEY AUTOINCREMENT,
+    name            TEXT NOT NULL,
+    created_by      INTEGER NOT NULL,
+    currency        TEXT DEFAULT 'INR',
+    created_at      TEXT DEFAULT (datetime('now')),
+
+    FOREIGN KEY (created_by) REFERENCES users(id) ON DELETE RESTRICT
+);
+
+CREATE TABLE page_participants (
+    page_id         INTEGER NOT NULL,
+    user_id         INTEGER NOT NULL,
+    joined_at       TEXT DEFAULT (datetime('now')),
+
+    PRIMARY KEY (page_id, user_id),
+    FOREIGN KEY (page_id)  REFERENCES pages(page_id)  ON DELETE CASCADE,
+    FOREIGN KEY (user_id)  REFERENCES users(id)       ON DELETE CASCADE
+);
+
+CREATE TABLE transactions (
+    id              INTEGER PRIMARY KEY AUTOINCREMENT,
+    page_id         INTEGER NOT NULL,
+    description     TEXT NOT NULL,
+    amount          REAL NOT NULL,
+    transaction_type TEXT NOT NULL,  
+    transaction_date TEXT NOT NULL,
+    created_by      INTEGER NOT NULL,
+    created_at      TEXT DEFAULT (datetime('now')),
+    is_settled      INTEGER DEFAULT 0 CHECK (is_settled IN (0,1)),
+
+    FOREIGN KEY (page_id)     REFERENCES pages(page_id)    ON DELETE CASCADE,
+    FOREIGN KEY (created_by)  REFERENCES users(id)         ON DELETE RESTRICT
+);
+
+CREATE TABLE transaction_participants (
+    transaction_id  INTEGER NOT NULL,
+    user_id         INTEGER NOT NULL,
+
+    share_amount    REAL DEFAULT 0,             
+
+
+    PRIMARY KEY (transaction_id, user_id),
+    FOREIGN KEY (transaction_id) REFERENCES transactions(id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id)        REFERENCES users(id)        ON DELETE CASCADE
+);
