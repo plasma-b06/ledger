@@ -54,3 +54,4 @@ CREATE TABLE transaction_participants (
     FOREIGN KEY (transaction_id) REFERENCES transactions(id) ON DELETE CASCADE,
     FOREIGN KEY (user_id)        REFERENCES users(id)        ON DELETE CASCADE
 );
+https://www.digitalocean.com/community/tutorials/how-to-make-a-web-application-using-flask-in-python-3

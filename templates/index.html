@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+<!-- Overrides the 'title' block in base.html -->
+{% block title %}
+Home Page
+{% endblock %}
+
+<!-- Overrides the 'content' block in base.html -->
+{% block content %}
+  <div class="body-header">
+    <h1>Welcome to the Ledger</h1>
+  </div>
+  <div class="row">
+  <div class="col-sm-6 mb-3 mb-sm-0">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Credit</h5>
+        <p class="card-text">See who owes your money.</p>
+        <a href="/dashboard" class="btn btn-primary">Check</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Debit</h5>
+        <p class="card-text">See who you owe money.</p>
+        <a href="/dashboard" class="btn btn-primary">Check</a>
+      </div>
+    </div>
+  </div>
+  </div>
+  <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">who</th>
+      <th scope="col">pays to</th>
+      <th scope="col">whom</th>
+      <th scope="col">Amount</th>
+    </tr>
+  </thead>
+  <tbody class="table-group-divider>
+    <tr>
+      <th scope="row"></th>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Jacob</td>
+      <td>Thornton</td>
+      <td>@fat</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>John</td>
+      <td>Doe</td>
+      <td>@social</td>
+    </tr>
+  </tbody>
+</table>
+{% endblock %}
