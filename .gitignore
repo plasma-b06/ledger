@@ -7,3 +7,5 @@ schema.txt
 schema.txt
 flask_session
 *.jpg
+hash.py
+hash.txt
