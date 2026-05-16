@@ -1,11 +1,35 @@
 {% extends "base.html" %}
 
-{% block title %}
-    Apology
-{% endblock %}
+{% block title %}Error{% endblock %}
 
-{% block main %}
-    <!-- https://memegen.link/ -->
-    <!-- https://knowyourmeme.com/memes/grumpy-cat -->
-    <img alt="{{ top }}" class="border img-fluid" src="https://api.memegen.link/images/custom/{{ top | urlencode }}/{{ bottom | urlencode }}.jpg?background=https://i.imgur.com/CsCgN7Ll.png&width=400" title="{{ top }}">
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center align-items-center min-vh-80">
+        <div class="col-md-8 col-lg-6 text-center">
+            
+            <div class="mb-4">
+                <h1 class="display-1 fw-bold text-danger">Oops!</h1>
+                <h3 class="text-muted">{{ top | default('Something went wrong') }}</h3>
+            </div>
+
+            <!-- Meme Image -->
+            <div class="mb-5">
+                <img 
+                    alt="{{ top }}" 
+                    class="img-fluid border shadow rounded"
+                    src="https://api.memegen.link/images/custom/{{ top | urlencode }}/{{ bottom | urlencode }}.jpg?background=https://i.imgur.com/CsCgN7Ll.png&width=500"
+                    title="{{ top }}">
+            </div>
+
+            <p class="lead text-muted mb-4">{{ bottom | default('Please try again later') }}</p>
+
+            <div>
+                <a href="/" class="btn btn-primary btn-lg px-4">
+                    ← Back to Home
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
 {% endblock %}

@@ -1,37 +1,37 @@
 {% extends "base.html" %}
-
-{%block head %}
+{% block head %}
 <title>Dashboard</title>
 {% endblock %}
-{% block content%}
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">who</th>
-      <th scope="col">pays to</th>
-      <th scope="col">whom</th>
-      <th scope="col">Amount</th>
-    </tr>
-  </thead>
-  <tbody class="table-group-divider">
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>John</td>
-      <td>Doe</td>
-      <td>@social</td>
-    </tr>
-  </tbody>
-</table>
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Balances</h2>
+    
+    {% if not data %}
+        <p class="text-muted"><i>No one owes anyone money right now.</i></p>
+    {% else %}
+        <table class="table table-hover">
+            <thead class="table-light">
+                <tr>
+                    <th>Who</th>
+                    <th>Pays to</th>
+                    <th>Whom</th>
+                    <th class="text-end">Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for debt in data %}
+                <tr>
+                    <td><strong>{{ debt.from_name }}</strong></td>
+                    <td>→</td>
+                    <td><strong>{{ debt.to_name }}</strong></td>
+                    <td class="text-end fw-bold text-danger">
+                        {{ debt.amount|round(2) }} {{ debt.currency }}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+</div>
 {% endblock %}

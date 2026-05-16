@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block title %}Create New Page{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">Create New Page / Group</h4>
+                </div>
+                
+                <div class="card-body">
+                    <form method="POST" action="/create-page">
+
+                        <div class="mb-3">
+                            <label for="name" class="form-label fw-bold">Page Name / Group Name</label>
+                            <input type="text" 
+                                   class="form-control form-control-lg" 
+                                   id="name" 
+                                   name="name" 
+                                   placeholder="e.g. Goa Trip 2026" 
+                                   required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="currency" class="form-label fw-bold">Currency</label>
+                            <select class="form-select" id="currency" name="currency">
+                                <option value="INR" selected>🇮🇳 Indian Rupee (INR)</option>
+                                <option value="USD">🇺🇸 US Dollar (USD)</option>
+                                <option value="EUR">🇪🇺 Euro (EUR)</option>
+                                <option value="GBP">🇬🇧 British Pound (GBP)</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">Description (Optional)</label>
+                            <textarea class="form-control" 
+                                      name="description" 
+                                      rows="3" 
+                                      placeholder="Short description about this group..."></textarea>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-success btn-lg">
+                                <i class="bi bi-plus-circle"></i> Create Page
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="card-footer text-muted text-center">
+                    You will be automatically added as a participant and the creator of this page.
+                </div>
+            </div>
+
+            <div class="text-center mt-3">
+                <a href="/pages" class="text-decoration-none">← Back to My Pages</a>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

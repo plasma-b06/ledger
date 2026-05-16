@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block title %}Transaction #{{ transaction.id }}{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between mb-4">
+        <h2>Transaction Details</h2>
+        <a href="/history" class="btn btn-secondary">← Back to History</a>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <h4>{{ transaction.description }}</h4>
+                    <p><strong>Page:</strong> {{ transaction.page_name }}</p>
+                    <p><strong>Date:</strong> {{ transaction.transaction_date }}</p>
+                    <p><strong>Paid By:</strong> <strong>{{ transaction.paid_by_name }}</strong></p>
+                </div>
+                <div class="col-md-6 text-end">
+                    <h2 class="text-success">₹ {{ transaction.amount|round(2) }}</h2>
+                    <p class="text-muted">{{ transaction.transaction_type|upper }}</p>
+                    {% if transaction.is_settled == 1 %}
+                        <span class="badge bg-success fs-6">✓ Settled</span>
+                    {% else %}
+                        <span class="badge bg-warning fs-6">Pending Settlement</span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h5>Participants & Shares</h5>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Participant</th>
+                <th class="text-end">Share Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for p in participants %}
+            <tr>
+                <td>
+                    {{ p.name }}
+                    {% if p.user_id == current_user_id %}<span class="badge bg-primary">You</span>{% endif %}
+                </td>
+                <td class="text-end fw-bold">₹ {{ p.share_amount|round(2) }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="mt-4">
+        <a href="#" class="btn btn-warning">Mark as Settled</a>
+        <a href="#" class="btn btn-danger">Delete Transaction</a>
+    </div>
+</div>
+{% endblock %}

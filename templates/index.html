@@ -1,76 +1,65 @@
 {% extends 'base.html' %}
 
-<!-- Overrides the 'title' block in base.html -->
-{% block title %}
-Home Page
-{% endblock %}
+{% block title %}Home Page{% endblock %}
 
-<!-- Overrides the 'content' block in base.html -->
 {% block content %}
-  <div class="body-header">
+<div class="body-header">
     <h1>Welcome to the Ledger</h1>
-  </div>
-  <div class="row">
-  <div class="col-sm-6 mb-3 mb-sm-0">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Credit</h5>
-        <p class="card-text">See who owes your money.</p>
-        <a href="/dashboard" class="btn btn-primary">Check</a>
-      </div>
-    </div>
-  </div>
-  <div class="col-sm-6">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Debit</h5>
-        <p class="card-text">See who you owe money.</p>
-        <a href="/dashboard" class="btn btn-primary">Check</a>
-      </div>
-    </div>
-  </div>
-  </div>
-  <table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Name</th>
-      <th scope="col">Amount</th>
-      <th scope="col">Description</th>
-      <th scope="col">Date</th>
-    </tr>
-  </thead>
-  <tbody class="table-group-divider">
-    <tr>
-      <th scope="row"></th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>John</td>
-      <td>Doe</td>
-      <td>@social</td>
-    </tr>
-  </tbody>
-</table>
-<div class="card bg-info-subtle">
-  <img src="..." class="card-img-top" alt="...">
-    <div class="card-body">
-      <div class="text-section">
-          <h5 class="card-title fw-bold">Card title</h5>
-          <p class="card-text">Some quick example text to build on the card's content.</p>
+</div>
+
+<div class="row">
+    <div class="col-sm-6 mb-3 mb-sm-0">
+        <div class="card text-bg-success">
+            <div class="card-body">
+                <h5 class="card-title">You are Owed (Credit)</h5>
+                <h3 class="card-text fw-bold">₹ {{ credit|round(2) }}</h3>
+                <a href="/dashboard" class="btn btn-light">View Details →</a>
+            </div>
         </div>
-        <div class="cta-section">
-            <div>$129.00</div>
-            <a href="#" class="btn btn-light">Buy Now</a>
+    </div>
+
+    <div class="col-sm-6">
+        <div class="card text-bg-danger">
+            <div class="card-body">
+                <h5 class="card-title">You Owe (Debit)</h5>
+                <h3 class="card-text fw-bold">₹ {{ debit|round(2) }}</h3>
+                <a href="/dashboard" class="btn btn-light">View Details →</a>
+            </div>
         </div>
     </div>
 </div>
+
+<br>
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h4>My Pages</h4>
+    <a href="/pages" class="btn btn-primary">View All Pages →</a>
+</div>
+
+<!-- Recent Transactions -->
+<h4>Recent Transactions</h4>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Page</th>
+            <th>Amount</th>
+            <th>Description</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if pages %}
+            {% for row in pages %}
+            <tr>
+                <td>{{ row.name }}</td>
+                <td>₹ {{ row.amount|round(2) }}</td>
+                <td>{{ row.description }}</td>
+                <td>{{ row.date }}</td>
+            </tr>
+            {% endfor %}
+        {% else %}
+            <tr><td colspan="4" class="text-center text-muted">No transactions yet.</td></tr>
+        {% endif %}
+    </tbody>
+</table>
 {% endblock %}

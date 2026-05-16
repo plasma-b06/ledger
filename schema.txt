@@ -47,8 +47,7 @@ CREATE TABLE transaction_participants (
     transaction_id  INTEGER NOT NULL,
     user_id         INTEGER NOT NULL,
 
-    share_amount    REAL DEFAULT 0,             
-
+    share_amount    REAL DEFAULT 0,
 
     PRIMARY KEY (transaction_id, user_id),
     FOREIGN KEY (transaction_id) REFERENCES transactions(id) ON DELETE CASCADE,
